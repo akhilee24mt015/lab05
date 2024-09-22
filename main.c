@@ -30,10 +30,24 @@ void init(void)
 
 }
 
-
-
 int main()
 {
-   
+    init();
+    GPIO_PORTF_DATA_R = 0x00; //Making red led to be off initially
+               while(1)
+               {
+                  // do nothing
+               }
 }
+void Interrupt_Handler(void)
+{
+    if(GPIO_PORTF_RIS_R & 0x10)
+    {
 
+            GPIO_PORTF_DATA_R ^= 0x02;
+
+            // Clear the interrupt
+            GPIO_PORTF_ICR_R = 0x10;
+
+    }
+}
